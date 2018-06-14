@@ -5,7 +5,7 @@
 		error_reporting(E_ALL);
 		$currentpage="My Champions";
 		include "pages.php";
-        include "header.php";
+    include "header.php";
 ?>
 <html>
 	<head>
@@ -18,14 +18,34 @@
 ?>
 <body>
   <?php
-	include 'connectvars.php';
+		include 'connectvars.php';
+		$msg = "Add a Champion!";
+	// change the value of $dbuser and $dbpass to your username and password
+		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if (!$conn) {
+			die('Could not connect: ' . mysql_error());
+		}
 
-	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-	if (!$conn) {
-		die('Could not connect: ' . mysql_error());
-	}
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	// Escape user inputs for security
+			$username = $_SESSION['username'];
+			$name = mysqli_real_escape_string($conn, $_POST['name']);
+			$power = mysqli_real_escape_string($conn, $_POST['power']);
+			$intelligence = mysqli_real_escape_string($conn, $_POST['intelligence']);
+			$endurance = mysqli_real_escape_string($conn, $_POST['endurance']);
+			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
+			$resultIn = mysqli_query($conn, $queryIn);
+	        // See if username is already in the table
+			if($username != ""){
+				$queryOut = "INSERT INTO Champions (cID, name, username, power, intelligence, endurance) VALUES (100, '$name', '$username', '$power', '$intelligence', '$endurance')";
+				if(mysqli_query($conn, $queryOut)){
+	      	echo '<p class="white">Champion Created</p>';
+				} else{
+				echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
+				}
+			}
+		}
 
-	
 	mysqli_close($conn);
 
 ?>
@@ -73,8 +93,7 @@
 		</tr>
 		</table>
 	</fieldset>
-		<label for="cost">cost</label>
-		<input type="number" class="required" name="cost" id="cost" readonly>
+		<h2 id="cost"> </h2>
 		  <p>
 			<input type = "submit"  value = "Submit" />
 			<input type = "button" value = "Reroll" onclick = REroll()>
