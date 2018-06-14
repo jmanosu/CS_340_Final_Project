@@ -63,13 +63,13 @@
 			<label class="labels" for="level">level</label>
 		</td>
 		<td>
-			<label class="labels" for="power">power</label>
+			<label class="statlabels" for="power">power</label>
 		</td>
 		<td>
-			<label class="labels" for="intelligence">intelligence</label>
+			<label class="statlabels" for="intelligence">intelligence</label>
 		</td>
 		<td>
-			<label class="labels" for="endurance">endurance</label>
+			<label class="statlabels" for="endurance">endurance</label>
 		</td>
 		</tr>
 		<tr>

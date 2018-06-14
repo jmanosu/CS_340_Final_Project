@@ -421,10 +421,27 @@ caption {
 
 }
 
-.notrequired{
-  display : none !important;
+input::-webkit-outer-spin-button.notrequired,
+input::-webkit-inner-spin-button.notrequired {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
+input[type='number'].notrequired {
+    all: unset;
+    -moz-appearance:textfield;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    color:white;
+}
+
+label.statlabels{
+  width: 100%;
+  text-align: center;
+  color:white;
+}
 .labels{
   color:white;
 }
