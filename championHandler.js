@@ -13,7 +13,7 @@ function CalcCredits(){
 	var cost = Number(document.getElementById('power').value);
 	cost += Number(document.getElementById('intelligence').value);
 	cost += Number(document.getElementById('endurance').value);
-	cost = Math.floor(cost / 3);
+	cost = Math.floor(cost / 10);
 	document.getElementById('cost').innerHTML = "Cost: " + cost;
 }
 
