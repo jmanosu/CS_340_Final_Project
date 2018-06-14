@@ -151,8 +151,6 @@
 		</table>
 	</fieldset>
 		<h2 id="cost"> </h2>
-		<label for="cost">cost</label>
-		<input type="number" class="required" name="cost" id="cost" readonly>
 		  <p>
 			<input type = "submit"  value = "Submit" />
 			<input type = "button" value = "Reroll" onclick = REroll()>
