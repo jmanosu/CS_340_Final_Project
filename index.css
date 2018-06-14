@@ -4,20 +4,20 @@ h1 {
     letter-spacing: 0;
     text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555;
 }
+
 h2{
     color:white;
 }
-body {
-    background-image: url(./images/bg.jpg);
-    background-size:cover;
-}
+
 h3 {
     color: white;
     text-align: center;
 }
+
 title{
     color:white;
 }
+
 header {
     height: 20px;
     background-color: none;
@@ -36,18 +36,24 @@ header em {
         font-size: 1.1em;
         font-family: Helvetica;
 }
+
 p.aboutus {
     color: white;
     text-align: center;
 }
+
 p.white{
     color:white;
 }
+
 html {
     background-color: lightblue;
     font-family: Helvetica;
     font-size: 18px;
+    background-image: url(./images/bg.jpg);
+    background-size:cover;
 }
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -63,7 +69,6 @@ nav li {
 
 nav li:nth-last-child(-n+4){
     border-right: none;
-    float: right;
     border-left:1px solid #bbb;
 }
 
@@ -74,6 +79,7 @@ nav li a {
     padding: 10px 16px;
     text-decoration: none;
 }
+
 nav li a:hover:not(.active) {
     background-color: orange;
 }
@@ -81,6 +87,7 @@ nav li a:hover:not(.active) {
 nav .active {
     background-color: green;
 }
+
 main {
 	overflow:auto;
 	margin: auto;
@@ -90,13 +97,15 @@ main {
 	border-radius: 8px;
 	padding: 10px 10px 10px 10px;
 }
+
 #betSpan {
 	float: right;
-
 }
+
 #betSection {
 	margin: 10px 10px 10px 10px;
 }
+
 #buttons {
 	width: 600px;
 	height: 120px;
@@ -173,6 +182,7 @@ main {
 	display: block;
 	margin: auto;
 }
+
 .clearfix {
     overflow: auto;
 }
@@ -180,6 +190,7 @@ main {
 em {
 	font-family: "Times New Roman", Georgia, Serif;
 }
+
 footer {
 	background-color: gray;
 	height: 20px;
@@ -192,16 +203,19 @@ footer {
 	margin-bottom: 0px;
 
 }
+
 #fspan {
 	float: right;
 	font-family: verdana;
     font-size: 12px;
 	color: orange;
 }
+
 .container1 {
 	margin-left: 20px;
 	font-size: 0.75em;
 }
+
 legend {
     padding: 1px 8px;
     border: 2px solid #e0d8b7;
@@ -211,10 +225,12 @@ legend {
     font-size: 14px;
     color: #5e5223;
 }
+
 form {
     display: block;
     margin-top: 0em;
 }
+
 fieldset label {
     float: left;
     clear: left;
@@ -224,6 +240,7 @@ fieldset label {
     font-size: 90%;
     color: #333;
 }
+
 fieldset input, fieldset textarea, fieldset select {
     padding: 2px 4px;
     border: 1px solid #ccc;
@@ -233,11 +250,13 @@ fieldset input, fieldset textarea, fieldset select {
     font-family: inherit;
     font-size: 1.1em;
 }
+
 fieldset span {
     display: block;
     margin: 0 0 0 120px;
     padding: 0 0 4px 4px;
 }
+
 fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type="button"] {
     padding: 2px 6px;
     border: #b5bbc4 1px solid;
@@ -249,6 +268,7 @@ fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type
     font-size: 100%;
     color: #333;
 }
+
 #passformat {
 	float: right;
 	width: 50%;
@@ -304,11 +324,13 @@ table#t01 th {
   background-color: orange;
   color: orange;
 }
+
 caption {
   font-weight: bold;
   padding: 0.5em 0 0.5em 0;
   text-align: left;
 }
+
 .btn2 {
   -webkit-border-radius: 2;
   -moz-border-radius: 2;
@@ -386,4 +408,23 @@ caption {
 #champions{
 	width: 80%;
 	padding: 20px;
+}
+
+#newChamps{
+  width: 70%;
+  text-align: center;
+  margin-top: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
+  background-color: grey;
+  padding: 10px;
+
+}
+
+.notrequired{
+  display : none !important;
+}
+
+.labels{
+  color:white;
 }
