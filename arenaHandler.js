@@ -38,6 +38,8 @@ function winCheck(){
 		display.innerHTML += " is the last one alive\n";
 		display.innerHTML += "A winnter has been decided, game ends.\n";
 		clearInterval(myVar);
+		document.getElementById('startButton').hidden = true;
+		document.getElementById('resetButton').hidden = false;
 	}
 }
 
@@ -235,6 +237,13 @@ function areaStart(){
 		myVar = setInterval(eventhandler, 1000);
 		start = false;
 	}	
+}
+
+function areaReset(){
+	display.innerHTML = "";
+	start = true;
+	document.getElementById('startButton').hidden = false;
+	document.getElementById('resetButton').hidden = true;
 }
 
 window.onload = function(){

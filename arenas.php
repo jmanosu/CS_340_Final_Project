@@ -111,7 +111,8 @@
 	?>
 	<h1>Events</h1>
 	<textarea cols = 85 rows = 25 readonly id = 'displayEvents'></textarea>
-	<br><input type = button value = 'START' onclick = areaStart()>
+	<br><input type = button id = 'startButton' value = 'START' onclick = areaStart()>
+	<input type = submit id = 'resetButton' value = 'Submit' onclick = areaReset() hidden>
 	<div hidden>
 		<?php
 
