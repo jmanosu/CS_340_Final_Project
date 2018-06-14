@@ -5,82 +5,123 @@
 		error_reporting(E_ALL);
 		$currentpage="My Champions";
 		include "pages.php";
-    include "header.php";
+        include "header.php";
 ?>
 <html>
 	<head>
 		<title>My Champions</title>
 		<link rel="stylesheet" href="index.css">
+		<script type = "text/javascript"  src = "championHandler.js" > </script>
 	</head>
 <?php
 	if (checkAuth(true) != "") {
 ?>
 <body>
-	<?php
-		$msg = "Add a Champion!";
-	// change the value of $dbuser and $dbpass to your username and password
-		include 'connectvars.php';
-		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if (!$conn) {
-			die('Could not connect: ' . mysql_error());
-		}
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	// Escape user inputs for security
-			$username = $_SESSION['username'];
-			$name = mysqli_real_escape_string($conn, $_POST['name']);
-			$power = mysqli_real_escape_string($conn, $_POST['power']);
-			$intelligence = mysqli_real_escape_string($conn, $_POST['intelligence']);
-			$endurance = mysqli_real_escape_string($conn, $_POST['endurance']);
-			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
-			$resultIn = mysqli_query($conn, $queryIn);
-	        // See if username is already in the table
-			if($username != ""){
-				$query = "INSERT INTO Champions (cID, name, username, power, intelligence, endurance) VALUES (100, '$name', '$username', '$power', '$intelligence', '$endurance')";
-				if(mysqli_query($conn, $query)){
-	      	echo '<p class="white">Champion Created</p>';
-				} else{
-				echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
-				}
-			}
+  <?php
+	include 'connectvars.php';
+
+	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (!$conn) {
+		die('Could not connect: ' . mysql_error());
 	}
-	// close connection
+	
+	$username = (string)($_SESSION['username']);
+	$queryIn = "SELECT wins, credits FROM Sponsors WHERE username = '$username'";
+	$resultIn = mysqli_query($conn, $queryIn);
+	$userdata =  mysqli_fetch_assoc($resultIn);
+	echo "<div class='account'>";
+	echo "<div id='username'>".$username."</div>";
+	echo "<div id='stats'> <p> <bold>Stats:</bold> <br> Wins: ".$userdata['wins']." <br> credits: ".$userdata['credits']." </p> </div>";
+
+
+	echo "<div class='champions'>";
+
+	$queryIn = "SELECT C.name, C.arena, C.level, C.exp, C.power, C.intelligence, C.endurance FROM Champions C WHERE C.username = '$username'";
+	$resultIn = mysqli_query($conn, $queryIn);
+	echo "<div id='champions'>";
+
+	echo "<h4>Champions</h4>";
+	echo "<table id='championtable' border='t'><tr>";
+	echo "<table id='t01' border='t'><tr>";
+	$fields_num = mysqli_num_fields($resultIn);
+	for($i = 0;$i < $fields_num; $i++){
+		$field = mysqli_fetch_field($resultIn);
+		echo "<td><b>$field->name</b></td>";
+	}
+	echo "<tr>";
+	while($row = mysqli_fetch_assoc($resultIn)){
+		echo "<div class='champion'>";
+		echo "<td>".$row['name']."</td>";
+		echo "<td>".(isset($row['arena']) ? $row['arena'] : "relaxing")."</td>";
+		echo "<td>".$row['level']."</td>";
+		echo "<td>".$row['exp']."</td>";
+		echo "<td>".$row['power']."</td>";
+		echo "<td>".$row['intelligence']."</td>";
+		echo "<td>".$row['endurance']."</td>";
+		echo "</div>";
+	}
+	echo "</table>";
+	echo "</table>";
+	echo "</tr>";
+	echo "</div>";
+
+	echo "</div>";
 	mysqli_close($conn);
 
-	?>
-		<section>
-	    <h2> <?php echo $msg; ?> </h2>
-
-	<form method="post" id="addForm">
+?>
+	<div class = 'newChams'>
+	<form method="post" id="addCham">
 	<fieldset>
-		<legend>User Info:</legend>
+		<legend>Add Champions:</legend>
+		<table id='addChamtable' border='t'>
+		<tr>
+		<td>
+			<label for="cName">Champion Name</label>
+		</td>
 
-	    <p>
-	        <label for="">Name:</label>
-	        <input type="text" class="required" name="name" id="name">
-	    </p>
+		<td>
+			<label for="level">level</label>
+		</td>
+		<td>
+			<label for="power">power</label>
+		</td>
+		<td>
+			<label for="intelligence">intelligence</label>
+		</td>
+		<td>
+			<label for="endurance">endurance</label>
+		</td>		
+		</tr>
+		<tr>
+		<td>
+			<input type="text" class="required" name="cName" id="cName" placeholder = "Input Champion's Name">
+		</td>
 
-			<p>
-					<label for="">Power:</label>
-					<input type="number" class="required" name="power" id="power">
-			</p>
+		<td>
+			<input type="number" class="required" name="level" id="level" min = 1 value = 1 onchange = REroll()>
+		</td>
+		<td>
+			<input type="number" class="required" name="power" id="power" readonly>
+		</td>
+		<td>
+			<input type="number" class="required" name="intelligence" id="intelligence" readonly>
+		</td>
+		<td>
+			<input type="number" class="required" name="endurance" id="endurance" readonly>
+		</td>
 
-			<p>
-					<label for="">Intelligence:</label>
-					<input type="number" class="required" name="intelligence" id="intelligence">
-			</p>
-
-			<p>
-					<label for="">Endurance:</label>
-					<input type="number" class="required" name="endurance" id="endurance">
-			</p>
-
+		</tr>
+		</table>
 	</fieldset>
-
-	      <p>
-	        <input type = "submit"  value = "Submit" />
-	        <input type = "reset"  value = "Clear Form" />
-	      </p>
+		<label for="cost">cost</label>
+		<input type="number" class="required" name="cost" id="cost" readonly>
+		  <p>
+			<input type = "submit"  value = "Submit" />
+			<input type = "button" value = "Reroll" onclick = REroll()>
+		  </p>
 	</form>
+	</div>
  </body>
+
 </html>
 <?php } ?>

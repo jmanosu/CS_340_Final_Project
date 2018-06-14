@@ -95,16 +95,15 @@
 	echo "<div id='champions'>";
 
 	echo "<h4>Champions</h4>";
-	echo "<div id='championtable'>";
+	echo "<table id='championtable' border='t'><tr>";
 	echo "<table id='t01' border='t'><tr>";
 	$fields_num = mysqli_num_fields($resultIn);
 	for($i = 0;$i < $fields_num; $i++){
 		$field = mysqli_fetch_field($resultIn);
 		echo "<td><b>$field->name</b></td>";
 	}
-	echo "</tr>\n";
+	echo "<tr>";
 	while($row = mysqli_fetch_assoc($resultIn)){
-		echo "<tr>";
 		echo "<div class='champion'>";
 		echo "<td>".$row['name']."</td>";
 		echo "<td>".(isset($row['arena']) ? $row['arena'] : "relaxing")."</td>";
@@ -114,9 +113,8 @@
 		echo "<td>".$row['intelligence']."</td>";
 		echo "<td>".$row['endurance']."</td>";
 		echo "</div>";
-		echo "</tr>";
 	}
-	echo "</table>";
+	echo "</tr>";
 	echo "</div>";
 
 	echo "</div>";
