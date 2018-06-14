@@ -10,11 +10,8 @@ function RerollStats(){
 
 function CalcCredits(){
 	var level = document.getElementById('level').value;
-	var cost = Number(document.getElementById('power').value);
-	cost += Number(document.getElementById('intelligence').value);
-	cost += Number(document.getElementById('endurance').value);
-	cost = Math.floor(cost / 10);
-	document.getElementById('cost').innerHTML = "Cost: " + cost;
+	var cost = 5 * level + Math.floor(Math.random()*5)-3;
+	document.getElementById('cost').value = cost;
 }
 
 function REroll(){
@@ -25,3 +22,4 @@ function REroll(){
 window.onload = function(){
 	REroll();
 }
+

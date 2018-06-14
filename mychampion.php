@@ -5,7 +5,7 @@
 		error_reporting(E_ALL);
 		$currentpage="My Champions";
 		include "pages.php";
-    include "header.php";
+        include "header.php";
 ?>
 <html>
 	<head>
@@ -18,59 +18,115 @@
 ?>
 <body>
   <?php
-		include 'connectvars.php';
-		$msg = "Add a Champion!";
-	// change the value of $dbuser and $dbpass to your username and password
-		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		if (!$conn) {
-			die('Could not connect: ' . mysql_error());
-		}
+	include 'connectvars.php';
 
+	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (!$conn) {
+		die('Could not connect: ' . mysql_error());
+	}
+	
+	$username = (string)($_SESSION['username']);
+	$queryIn = "SELECT wins, credits FROM Sponsors WHERE username = '$username'";
+	$resultIn = mysqli_query($conn, $queryIn);
+	$userdata =  mysqli_fetch_assoc($resultIn);
+	echo "<div class='account'>";
+	echo "<div id='username'>".$username."</div>";
+	echo "<div id='stats'> <p> <bold>Stats:</bold> <br> Wins: ".$userdata['wins']." <br> credits: ".$userdata['credits']." </p> </div>";
+
+
+	echo "<div class='champions'>";
+
+	$queryIn = "SELECT C.name, C.arena, C.level, C.exp, C.power, C.intelligence, C.endurance FROM Champions C WHERE C.username = '$username'";
+	$resultIn = mysqli_query($conn, $queryIn);
+	echo "<div id='champions'>";
+
+	echo "<h4>Champions</h4>";
+	echo "<table id='championtable' border='t'><tr>";
+	echo "<table id='t01' border='t'><tr>";
+	$fields_num = mysqli_num_fields($resultIn);
+	for($i = 0;$i < $fields_num; $i++){
+		$field = mysqli_fetch_field($resultIn);
+		echo "<td><b>$field->name</b></td>";
+	}
+
+	while($row = mysqli_fetch_assoc($resultIn)){
+		echo "<tr>";
+		echo "<div class='champion'>";
+		echo "<td>".$row['name']."</td>";
+		echo "<td>".(isset($row['arena']) ? $row['arena'] : "relaxing")."</td>";
+		echo "<td>".$row['level']."</td>";
+		echo "<td>".$row['exp']."</td>";
+		echo "<td>".$row['power']."</td>";
+		echo "<td>".$row['intelligence']."</td>";
+		echo "<td>".$row['endurance']."</td>";
+		echo "</div>";
+		echo "</tr>";
+	}
+	echo "</table>";
+	echo "</table>";
+	echo "</div>";
+
+	echo "</div>";
+	
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
 	// Escape user inputs for security
-			$username = $_SESSION['username'];
-			$name = mysqli_real_escape_string($conn, $_POST['name']);
+			$username = $_GET['user'];
+			$cName = mysqli_real_escape_string($conn, $_POST['cName']);
+			$level = mysqli_real_escape_string($conn, $_POST['level']);
 			$power = mysqli_real_escape_string($conn, $_POST['power']);
-			$intelligence = mysqli_real_escape_string($conn, $_POST['intelligence']);
-			$endurance = mysqli_real_escape_string($conn, $_POST['endurance']);
-			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
+			$intel = mysqli_real_escape_string($conn, $_POST['intelligence']);
+			$endu = mysqli_real_escape_string($conn, $_POST['endurance']);
+			
+			$queryIn = "SELECT * FROM Champions where name='$cName'";
 			$resultIn = mysqli_query($conn, $queryIn);
-	        // See if username is already in the table
-			if($username != ""){
-				$queryOut = "INSERT INTO Champions (cID, name, username, power, intelligence, endurance) VALUES (100, '$name', '$username', '$power', '$intelligence', '$endurance')";
-				if(mysqli_query($conn, $queryOut)){
-	      	echo '<p class="white">Champion Created</p>';
+			if(mysqli_num_rows($resultIn)>0){
+				echo "<h2>Can't Add to Table</h2> There is already a Champion with that name $cName<p>";
+			}
+			else{
+				do{
+					$cID = rand(0,999);
+					$queryIn = "SELECT * FROM Champions where cID='$cID'";
+					$resultIn = mysqli_query($conn, $queryIn);
+				}
+				while(mysqli_num_rows($resultIn)>0);
+				
+				$query = "INSERT INTO Champions (cID,name,username,level,power,intelligence,endurance,alive) 
+						VALUES ('$cID',  '$cName','$username', '$level','$power','$intel','$endu',1)";
+				if(mysqli_query($conn, $query)){	
+					echo '<p class="white">Your Champion is created</p>';
 				} else{
-				echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
+					echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
 				}
 			}
 		}
-
+	
+	
 	mysqli_close($conn);
 
 ?>
-	<div id = 'newChamps'>
+	<div class = 'newChams'>
 	<form method="post" id="addCham">
 	<fieldset>
 		<legend>Add Champions:</legend>
 		<table id='addChamtable' border='t'>
 		<tr>
 		<td>
-			<label class="labels" for="cName">Champion Name</label>
+			<label for="cName">Champion Name</label>
 		</td>
 
 		<td>
-			<label class="labels" for="level">level</label>
+			<label for="level">level</label>
 		</td>
 		<td>
-			<label class="statlabels" for="power">power</label>
+			<label for="power">power</label>
 		</td>
 		<td>
-			<label class="statlabels" for="intelligence">intelligence</label>
+			<label for="intelligence">intelligence</label>
 		</td>
 		<td>
-			<label class="statlabels" for="endurance">endurance</label>
-		</td>
+			<label for="endurance">endurance</label>
+		</td>		
 		</tr>
 		<tr>
 		<td>
@@ -81,19 +137,20 @@
 			<input type="number" class="required" name="level" id="level" min = 1 value = 1 onchange = REroll()>
 		</td>
 		<td>
-			<input type="number" class="notrequired" name="power" id="power" readonly>
+			<input type="number" class="required" name="power" id="power" readonly>
 		</td>
 		<td>
-			<input type="number" class="notrequired" name="intelligence" id="intelligence" readonly>
+			<input type="number" class="required" name="intelligence" id="intelligence" readonly>
 		</td>
 		<td>
-			<input type="number" class="notrequired" name="endurance" id="endurance" readonly>
+			<input type="number" class="required" name="endurance" id="endurance" readonly>
 		</td>
 
 		</tr>
 		</table>
 	</fieldset>
-		<h2 id="cost"> </h2>
+		<label for="cost">cost</label>
+		<input type="number" class="required" name="cost" id="cost" readonly>
 		  <p>
 			<input type = "submit"  value = "Submit" />
 			<input type = "button" value = "Reroll" onclick = REroll()>
