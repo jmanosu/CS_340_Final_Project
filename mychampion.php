@@ -19,7 +19,8 @@
 <body>
   <?php
 	include 'connectvars.php';
-
+	$msg = "Add a Champion!";
+	// change the value of $dbuser and $dbpass to your username and password
 	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if (!$conn) {
 		die('Could not connect: ' . mysql_error());
@@ -105,27 +106,27 @@
 	mysqli_close($conn);
 
 ?>
-	<div class = 'newChams'>
+	<div id = 'newChams'>
 	<form method="post" id="addCham">
 	<fieldset>
 		<legend>Add Champions:</legend>
 		<table id='addChamtable' border='t'>
 		<tr>
 		<td>
-			<label for="cName">Champion Name</label>
+			<label class="labels" for="cName">Champion Name</label>
 		</td>
 
 		<td>
-			<label for="level">level</label>
+			<label class="labels" for="level">level</label>
 		</td>
 		<td>
-			<label for="power">power</label>
+			<label class="statlabels" for="power">power</label>
 		</td>
 		<td>
-			<label for="intelligence">intelligence</label>
+			<label class="statlabels" for="intelligence">intelligence</label>
 		</td>
 		<td>
-			<label for="endurance">endurance</label>
+			<label class="statlabels" for="endurance">endurance</label>
 		</td>		
 		</tr>
 		<tr>
@@ -137,18 +138,19 @@
 			<input type="number" class="required" name="level" id="level" min = 1 value = 1 onchange = REroll()>
 		</td>
 		<td>
-			<input type="number" class="required" name="power" id="power" readonly>
+			<input type="number" class="notrequired" name="power" id="power" readonly>
 		</td>
 		<td>
-			<input type="number" class="required" name="intelligence" id="intelligence" readonly>
+			<input type="number" class="notrequired" name="intelligence" id="intelligence" readonly>
 		</td>
 		<td>
-			<input type="number" class="required" name="endurance" id="endurance" readonly>
+			<input type="number" class="notrequired" name="endurance" id="endurance" readonly>
 		</td>
 
 		</tr>
 		</table>
 	</fieldset>
+		<h2 id="cost"> </h2>
 		<label for="cost">cost</label>
 		<input type="number" class="required" name="cost" id="cost" readonly>
 		  <p>
