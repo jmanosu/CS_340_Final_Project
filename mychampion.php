@@ -78,28 +78,39 @@
 			$power = mysqli_real_escape_string($conn, $_POST['power']);
 			$intel = mysqli_real_escape_string($conn, $_POST['intelligence']);
 			$endu = mysqli_real_escape_string($conn, $_POST['endurance']);
+			$cost = mysqli_real_escape_string($conn, $_POST['costs']);
 			
-			$queryIn = "SELECT * FROM Champions where name='$cName'";
+			$queryIn = "SELECT credits FROM Sponsors where username = '$username'";
 			$resultIn = mysqli_query($conn, $queryIn);
-			if(mysqli_num_rows($resultIn)>0){
-				echo "<h2>Can't Add to Table</h2> There is already a Champion with that name $cName<p>";
-			}
+			$user = mysqli_fetch_row($resultIn);
+			if($user[0] < $cost) echo'<p class="white">You do not have enough credits</p>';
 			else{
-				do{
-					$cID = rand(0,999);
-					$queryIn = "SELECT * FROM Champions where cID='$cID'";
-					$resultIn = mysqli_query($conn, $queryIn);
-				}
-				while(mysqli_num_rows($resultIn)>0);
+				$queryIn = "UPDATE Sponsors SET credits = credits - '$cost' WHERE username = '$username'";
+				$resultIn = mysqli_query($conn, $queryIn);
 				
-				$query = "INSERT INTO Champions (cID,name,username,level,power,intelligence,endurance,alive) 
-						VALUES ('$cID',  '$cName','$username', '$level','$power','$intel','$endu',1)";
-				if(mysqli_query($conn, $query)){	
-					echo '<p class="white">Your Champion is created</p>';
-				} else{
-					echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+				$queryIn = "SELECT * FROM Champions where name='$cName'";
+				$resultIn = mysqli_query($conn, $queryIn);
+				if(mysqli_num_rows($resultIn)>0){
+					echo "<h2 class = 'white'>Can't Add to Table</h2> There is already a Champion with that name $cName<p>";
+				}
+				else{
+					do{
+						$cID = rand(0,999);
+						$queryIn = "SELECT * FROM Champions where cID='$cID'";
+						$resultIn = mysqli_query($conn, $queryIn);
+					}
+					while(mysqli_num_rows($resultIn)>0);
+					
+					$query = "INSERT INTO Champions (cID,name,username,level,power,intelligence,endurance,alive) 
+							VALUES ('$cID',  '$cName','$username', '$level','$power','$intel','$endu',1)";
+					if(mysqli_query($conn, $query)){	
+						echo '<p class="white">Your Champion is created</p>';
+					} else{
+						echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+					}
 				}
 			}
+
 		}
 	
 	
@@ -151,8 +162,9 @@
 		</table>
 	</fieldset>
 		<h2 id="cost"> </h2>
+		<input type="number" class="required" name="costs" id="costs" readonly hidden>
 		  <p>
-			<input type = "submit"  value = "Submit" />
+			<input type = "submit"  value = "Submit"/>
 			<input type = "button" value = "Reroll" onclick = REroll()>
 		  </p>
 	</form>
