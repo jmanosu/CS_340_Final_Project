@@ -155,7 +155,7 @@ INSERT INTO `Graveyard` (`cID`, `arena`) VALUES
 CREATE TABLE `Sponsors` (
   `username` varchar(20) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `salt` varchar(20) NOT NULL,
+  `salt` varchar(50) NOT NULL,
   `password` varchar(40) NOT NULL,
   `wins` int(11) NOT NULL DEFAULT '0',
   `credits` int(11) NOT NULL DEFAULT '20',

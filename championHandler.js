@@ -6,6 +6,7 @@ function RerollStats(){
 	document.getElementById('power').value = power;
 	document.getElementById('intelligence').value = intelligence;
 	document.getElementById('endurance').value = endurance;
+	CalcCredits();
 }
 
 function CalcCredits(){
@@ -15,6 +16,7 @@ function CalcCredits(){
 	cost += Number(document.getElementById('endurance').value);
 	cost = Math.floor(cost / 10);
 	document.getElementById('cost').innerHTML = "Cost: " + cost;
+	document.getElementById('costs').value = cost;
 }
 
 function REroll(){
@@ -25,3 +27,4 @@ function REroll(){
 window.onload = function(){
 	REroll();
 }
+
