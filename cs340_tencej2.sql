@@ -103,6 +103,11 @@ IF new.alive = 0 AND old.alive = 1 THEN
 	INSERT INTO `Graveyard` (`cID`,`arena`) VALUES (new.cid,new.arena);
     UPDATE Sponsors S SET S.cNum = S.cNum - 1 WHERE old.username = S.username;
 END IF;
+IF old.arena IS NOT NULL THEN
+	UPDATE Arena A
+    SET A.numChampions = A.numChampions - 1
+    WHERE A.name = old.arena;
+END IF;
 
 	UPDATE Arena A SET A.numChampions = A.numChampions + 1 WHERE A.name = new.arena;
     UPDATE Arena A SET A.numChampions = A.numChampions - 1 WHERE A.name = old.arena;
