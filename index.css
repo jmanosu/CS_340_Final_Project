@@ -47,11 +47,12 @@ p.white{
 }
 
 html {
-    background-color: lightblue;
+    background-color: #282828;
     font-family: Helvetica;
     font-size: 18px;
     background-image: url(./images/bg.jpg);
     background-size:cover;
+    background-repeat: no-repeat;
 }
 
 nav ul {

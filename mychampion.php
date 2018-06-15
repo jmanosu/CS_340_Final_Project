@@ -29,19 +29,30 @@
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// Escape user inputs for security
 			$username = $_SESSION['username'];
-			$name = mysqli_real_escape_string($conn, $_POST['name']);
+			$queryIn = "SELECT credits FROM Sponsors WHERE username = '$username'";
+			$resultIn = mysqli_query($conn, $queryIn);
+			$userdata =  mysqli_fetch_assoc($resultIn);
+			$name = mysqli_real_escape_string($conn, $_POST['cName']);
+			$level = mysqli_real_escape_string($conn, $_POST['level']);
 			$power = mysqli_real_escape_string($conn, $_POST['power']);
 			$intelligence = mysqli_real_escape_string($conn, $_POST['intelligence']);
 			$endurance = mysqli_real_escape_string($conn, $_POST['endurance']);
+			$queryIn = "SELECT MAX(cID) AS MAX FROM Champions";
+			$resultIn = mysqli_query($conn, $queryIn);
+			$cID = mysqli_fetch_assoc($resultIn)['MAX'] + 1;
 			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
 			$resultIn = mysqli_query($conn, $queryIn);
-	        // See if username is already in the table
-			if($username != ""){
-				$queryOut = "INSERT INTO Champions (cID, name, username, power, intelligence, endurance) VALUES (100, '$name', '$username', '$power', '$intelligence', '$endurance')";
-				if(mysqli_query($conn, $queryOut)){
-	      	echo '<p class="white">Champion Created</p>';
-				} else{
-				echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
+	    $cost = floor(($power + $intelligence + $endurance)/10);
+			if($userdata["credits"] < $cost){
+				echo'<p class="white">You do not have enough credits</p>';
+			}else{
+				if($username == ""){
+					$queryOut = "INSERT INTO Champions (cID, name, username, level, power, intelligence, endurance) VALUES ('$cID', '$name', '$username', '$level', '$power', '$intelligence', '$endurance')";
+					if(mysqli_query($conn, $queryOut)){
+		      	echo '<p class="white">Champion Created</p>';
+					} else{
+					echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
+					}
 				}
 			}
 		}
