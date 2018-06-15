@@ -39,10 +39,10 @@ CREATE TABLE `Arena` (
 --
 
 INSERT INTO `Arena` (`name`, `weather`, `numChampions`) VALUES
-('Black Hole of Doom', 'Cloudy', 0),
-('Final Destination', 'Cloudy', 0),
-('Fire Mountain', 'Snowy', 0),
-('Thunder Dome', 'Sunny', 0),
+('Black Hole of Doom', 'Cloudy', 2),
+('Final Destination', 'Cloudy', 1),
+('Fire Mountain', 'Snowy', 4),
+('Thunder Dome', 'Sunny', 1),
 ('Water World', 'Rainy', 0);
 
 -- --------------------------------------------------------
@@ -69,16 +69,16 @@ CREATE TABLE `Champions` (
 --
 
 INSERT INTO `Champions` (`cID`, `name`, `username`, `arena`, `level`, `exp`, `power`, `intelligence`, `endurance`, `alive`) VALUES
-(1, 'Spongebob', NULL, NULL, 1, 1, 1, 1, 1, 0),
-(2, 'Bob the Builder', NULL, NULL, 1, 1, 1, 1, 1, 0),
-(3, 'time bender', NULL, NULL, 2, 234, 234, 234, 234, 0),
-(4, 'Larry The Lobster', 'God', NULL, 4, 4, 4, 4, 4, 1),
+(1, 'Spongebob', 'Gandalf', 'Black Hole of Doom', 1, 1, 1, 1, 1, 0),
+(2, 'Bob the Builder', 'Gandalf', 'Black Hole of Doom', 1, 1, 1, 1, 1, 0),
+(3, 'time bender', 'Gandalf', 'Fire Mountain', 2, 234, 234, 234, 234, 0),
+(4, 'Larry The Lobster', 'God', 'Fire Mountain', 4, 4, 4, 4, 4, 1),
 (5, 'Patrick Star', 'Fire Wizard', 'Fire Mountain', 3, 3, 3, 3, 3, 1),
 (6, 'Super Ninja', 'Frog', 'Thunder Dome', 6, 6, 6, 6, 6, 1),
 (7, 'seven man', 'Super Ice Lord', 'Fire Mountain', 7, 7, 7, 7, 7, 1),
 (8, 'The Mountain', 'Super Ice Lord', 'Final Destination', 1, 11, 1, 1, 1, 1),
-(9, 'Flash', NULL, NULL, 1, 1, 11, 1, 1, 0),
-(10, 'Hulk', NULL, NULL, 999, 999, 999, 999, 999, 0);
+(9, 'Flash', 'Gandalf', 'Water World', 1, 1, 11, 1, 1, 0),
+(10, 'Hulk', 'Gandalf', 'Water World', 999, 999, 999, 999, 999, 0);
 
 --
 -- Triggers `Champions`
@@ -167,11 +167,11 @@ CREATE TABLE `Sponsors` (
 --
 
 INSERT INTO `Sponsors` (`username`, `email`, `salt`, `password`, `wins`, `credits`, `cNum`) VALUES
-('Fire Wizard', 'flame@gmail.com', 'asdf', 'password', 0, 20, 0),
-('Frog', 'water@gmail.com', 'asdf', 'password', 0, 20, 0),
-('Gandalf', 'greywizard@gmail.com', 'asdf', 'password', 0, 20, 0),
-('God', 'holy@gmail.com', 'asdf', 'password', 0, 20, 0),
-('Super Ice Lord', 'snow@gmail.com', 'asdf', 'password', 0, 20, 0);
+('Fire Wizard', 'flame@gmail.com', 'asdf', 'password', 3, 20, 1),
+('Frog', 'water@gmail.com', 'asdf', 'password', 4, 20, 1),
+('Gandalf', 'greywizard@gmail.com', 'asdf', 'password', 10, 20, 5),
+('God', 'holy@gmail.com', 'asdf', 'password', 2, 20, 1),
+('Super Ice Lord', 'snow@gmail.com', 'asdf', 'password', 1, 20, 2);
 
 -- --------------------------------------------------------
 
