@@ -30,8 +30,8 @@
 	    // where is the user trying to get back to, after logging in?
 	    $sendBackTo = isset($_REQUEST["sendBackTo"]) ? $_REQUEST["sendBackTo"] : "mychampion.php";
 			// Escape user inputs for security
-			$username = mysqli_real_escape_string($conn, $_POST['username']);
-			$userpassword = mysqli_real_escape_string($conn, $_POST['password']);
+			$username = preg_replace('/[^A-Za-z0-9\. -]/', '', mysqli_real_escape_string($conn, $_POST['username']));
+			$userpassword = preg_replace('/[^A-Za-z0-9\. -]/', '', mysqli_real_escape_string($conn, $_POST['password']));
 			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
 			$resultIn = mysqli_query($conn, $queryIn);
 			if($row = mysqli_fetch_assoc($resultIn)){

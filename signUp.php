@@ -40,9 +40,9 @@
 			echo "key: ".$key." value: ".$value;
 		}
 // Escape user inputs for security
-		$username = mysqli_real_escape_string($conn, $_POST['username']);
-		$emailAddress = mysqli_real_escape_string($conn, $_POST['emailAddress']);
-		$userpassword = mysqli_real_escape_string($conn, $_POST['password1']);
+		$username = preg_replace('/[^A-Za-z0-9\. -]/', '', mysqli_real_escape_string($conn, $_POST['username']));
+		$emailAddress = preg_replace('/[^A-Za-z0-9\. -]/', '', mysqli_real_escape_string($conn, $_POST['emailAddress']));
+		$userpassword = preg_replace('/[^A-Za-z0-9\. -]/', '', mysqli_real_escape_string($conn, $_POST['password1']));
 		$queryIn = "SELECT * FROM Sponsors where username='$username' ";
 		$resultIn = mysqli_query($conn, $queryIn);
         // See if username is already in the table
