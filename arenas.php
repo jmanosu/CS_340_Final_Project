@@ -80,9 +80,9 @@
 			$queryIn = "SELECT C.cID, C.name, C.power, C.intelligence, C.endurance FROM Champions C WHERE C.username = '$username' AND C.arena IS NULL AND C.alive = 1";
 			$resultIn = mysqli_query($conn, $queryIn);
 
-			echo "<div class='add-champion'>";
+			echo "<div class='add-champions'>";
 			while($row = mysqli_fetch_assoc($resultIn)){
-					echo "<div class='arena'>";
+					echo "<div class='add-champion'>";
 					echo "<h4>".$row['name']."</h4>";
 					echo "<p><bold>P:</bold> ".$row['power']."<br>";
 					echo "<bold>I:</bold> ".$row['intelligence']."<br>";
@@ -92,6 +92,7 @@
 					echo "</form>";
 					echo "</div>";
  			}
+			echo "</div>";
 		}
 
 		$var = $_GET['arena'];
@@ -150,14 +151,14 @@
 				die("Query couldn't complete");
 			}
 
-			echo "<h1>Past Winners:</h1>";
-
 			if(mysqli_num_rows($resultIn) > 0){
+				echo "<h1>Past Winners:</h1>";
 				display($resultIn);
 			}
 
 
 	?>
+	<div id="Events">
 		<h1>Events</h1>
 		<textarea cols = 85 rows = 25 readonly id = 'displayEvents'></textarea>
 		<br><input type = button id = 'startButton' value = 'START' onclick = areaStart()>
@@ -182,6 +183,7 @@
 		mysqli_close($conn);
 		?>
 	</div>
+</div>
 
  </body>
 </html>

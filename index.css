@@ -444,3 +444,44 @@ label.statlabels{
 .labels{
   color:white;
 }
+
+#Events{
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 200px;
+}
+
+#startButton{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#displayEvents{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.add-champions {
+  flex: 0 0 27%;
+  display: flex;
+  margin: 20px;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.add-champion{
+	width: 20%;
+	height: 100%;
+  text-align: center;
+	margin: 5px;
+	flex-direction: column;
+  padding: 20px;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background-color: #fff;
+	flex-direction: column;
+}
