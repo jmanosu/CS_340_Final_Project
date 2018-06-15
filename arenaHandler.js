@@ -27,15 +27,8 @@ function winCheck(){
 		var len = Chams_name.length;
 		var i;
 		var pos;
-		for(i=0;i < len;i++){
-			if(Chams_alive[i].innerHTML == 1){
-				pos = i;
-				i = len;
-			}
-		}
+
 		display.innerHTML += "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
-		display.innerHTML += Chams_name[pos].innerHTML;
-		display.innerHTML += " is the last one alive\n";
 		display.innerHTML += "A winnter has been decided, game ends.\n";
 		clearInterval(myVar);
 		document.getElementById('startButton').hidden = true;
@@ -50,7 +43,7 @@ function powerEvent(){
 	var RNG = Math.floor(Math.random()*100);
 	if(RNG - Chams_pow[ranChams].innerHTML > 80){
 		numChams --;
-		Chams_alive[ranChams].innerHTML = 0;
+		removeChams(Chams_name[ranChams].innerHTML);
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " is attacked by a black bear, he trys to push it away but failed\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
@@ -79,6 +72,10 @@ function powerEvent(){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " feels really good now\n";
 	}
+	updateChams(Chams_name[ranChams].innerHTML,
+				Chams_pow[ranChams].innerHTML,
+				Chams_intel[ranChams].innerHTML,
+				Chams_endu[ranChams].innerHTML);
 }
 
 function intellEvent(){
@@ -87,7 +84,7 @@ function intellEvent(){
 	var RNG = Math.floor(Math.random()*100);
 	if(RNG - Chams_intel[ranChams].innerHTML > 80){
 		numChams --;
-		Chams_alive[ranChams].innerHTML = 0;
+		removeChams(Chams_name[ranChams].innerHTML);;
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += "PUT TEXT HERE\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
@@ -98,8 +95,8 @@ function intellEvent(){
 		display.innerHTML += "PUT TEXT HERE\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += "PUT TEXT HERE\n";
-		if(Chams_power[ranChams].innerHTML >= 5) Chams_power[ranChams].innerHTML--;
-		if (Chams_power[ranChams].innerHTML <= 0){
+		if(Chams_pow[ranChams].innerHTML >= 5) Chams_pow[ranChams].innerHTML--;
+		if (Chams_pow[ranChams].innerHTML <= 0){
 			display.innerHTML += "PUT TEXT HERE";
 			display.innerHTML += Chams_name[ranChams].innerHTML;
 			display.innerHTML += " passed away.\n";
@@ -116,6 +113,10 @@ function intellEvent(){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " feels really good now\n";
 	}
+	updateChams(Chams_name[ranChams].innerHTML,
+				Chams_pow[ranChams].innerHTML,
+				Chams_intel[ranChams].innerHTML,
+				Chams_endu[ranChams].innerHTML);
 }
 
 function enduranEvent(){
@@ -124,7 +125,7 @@ function enduranEvent(){
 	var RNG = Math.floor(Math.random()*100);
 	if(RNG - Chams_endu[ranChams].innerHTML > 80){
 		numChams --;
-		Chams_alive[ranChams].innerHTML = 0;
+		removeChams(Chams_name[ranChams].innerHTML);;
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " PUT TEXT HERE\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
@@ -153,6 +154,10 @@ function enduranEvent(){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " PUT TEXT HERE\n";
 	}
+	updateChams(Chams_name[ranChams].innerHTML,
+				Chams_pow[ranChams].innerHTML,
+				Chams_intel[ranChams].innerHTML,
+				Chams_endu[ranChams].innerHTML);
 }
 
 function DuelEvent(){
@@ -163,11 +168,11 @@ function DuelEvent(){
 	while(ranCham1 == ranCham2) ranCham2 = Math.floor(Math.random()*numChams);
 	var RNG = Math.floor(Math.random()*100);
 	if(randomEvent < 20){
-		display.innerHTML += Chams_name[ranCham1].innerHTML;;
+		display.innerHTML += Chams_name[ranCham1].innerHTML;
 		display.innerHTML += " tracked down "
-		display.innerHTML += Chams_name[ranCham2].innerHTML;;
+		display.innerHTML += Chams_name[ranCham2].innerHTML;
 		display.innerHTML += " and he asks "
-		display.innerHTML += Chams_name[ranCham2].innerHTML;;
+		display.innerHTML += Chams_name[ranCham2].innerHTML;
 		display.innerHTML += " to fight with him\n"
 		if(RNG > 50 - (Chams_pow[ranCham1].innerHTML - Chams_pow[ranCham2].innerHTML)){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
@@ -175,7 +180,7 @@ function DuelEvent(){
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			Chams_alive[ranCham1].innerHTML = 0;		
+			removeChams(Chams_name[ranCham1].innerHTML);;		
 		}
 		else{
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
@@ -183,7 +188,7 @@ function DuelEvent(){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			Chams_alive[ranCham2].innerHTML = 0;
+			removeChams(Chams_name[ranCham2].innerHTML);;
 		}
 	}
 	else if(randomEvent < 40){
@@ -197,7 +202,7 @@ function DuelEvent(){
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			Chams_alive[ranCham1].innerHTML = 0;
+			removeChams(Chams_name[ranCham1].innerHTML);;
 		}
 		else{
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
@@ -205,7 +210,7 @@ function DuelEvent(){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			Chams_alive[ranCham2].innerHTML = 0;
+			removeChams(Chams_name[ranCham2].innerHTML);;
 		}
 	}
 	else{
@@ -219,7 +224,7 @@ function DuelEvent(){
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			Chams_alive[ranCham1].innerHTML = 0;
+			removeChams(Chams_name[ranCham1].innerHTML);;
 		}
 		else{
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
@@ -227,9 +232,17 @@ function DuelEvent(){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			Chams_alive[ranCham2].innerHTML = 0;
+			removeChams(Chams_name[ranCham2].innerHTML);;
 		}
 	}
+	updateChams(Chams_name[ranCham1].innerHTML,
+				Chams_pow[ranCham1].innerHTML,
+				Chams_intel[ranCham1].innerHTML,
+				Chams_endu[ranCham1].innerHTML);
+	updateChams(Chams_name[ranCham2].innerHTML,
+				Chams_pow[ranCham2].innerHTML,
+				Chams_intel[ranCham2].innerHTML,
+				Chams_endu[ranCham2].innerHTML);
 }
 
 function areaStart(){
@@ -245,6 +258,32 @@ function areaReset(){
 	document.getElementById('startButton').hidden = false;
 	document.getElementById('resetButton').hidden = true;
 }
+
+function updateChams(name,pow,intell,endu){
+	 if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.open("GET","updateChams?name="+name+"&power="+pow+"&intell="+intell+"&endu="+endu,true);
+        xmlhttp.send();
+  }
+
+function removeChams(name){
+	if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.open("GET","removeChams.php?name="+name,true);
+        xmlhttp.send();
+   }
 
 window.onload = function(){
 	display = document.getElementById('displayEvents');

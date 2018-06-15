@@ -34,6 +34,9 @@ CREATE TABLE `Arena` (
   `numChampions` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+
 --
 -- Dumping data for table `Arena`
 --
@@ -94,10 +97,17 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
+
 CREATE TRIGGER `ChampionTriggerOnUpdate` AFTER UPDATE ON `Champions` FOR EACH ROW BEGIN
 IF new.alive = 0 AND old.alive = 1 THEN
 	INSERT INTO `Graveyard` (`cID`) VALUES (new.cid);
 END IF;
+IF new.cID IS NOT NULL THEN
+	UPDATE Arena A
+    SET A.numChampions = A.numChampions + 1
+    WHERE A.name = new.arena;
+END IF;
+
 END
 $$
 DELIMITER ;

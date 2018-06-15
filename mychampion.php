@@ -40,26 +40,34 @@
 			$queryIn = "SELECT MAX(cID) AS MAX FROM Champions";
 			$resultIn = mysqli_query($conn, $queryIn);
 			$cID = mysqli_fetch_assoc($resultIn)['MAX'] + 1;
-			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
+			
+			$queryIn = "SELECT * FROM Champions where name='$name' ";
 			$resultIn = mysqli_query($conn, $queryIn);
-			$cost = mysqli_real_escape_string($conn, $_POST['costs']);
-			if($userdata["credits"] < $cost){
-				echo'<p class="white">You do not have enough credits</p>';
-			}else{
-				$queryIn = "UPDATE Sponsors SET credits = credits - '$cost' WHERE username = '$username'";
+			if(mysqli_num_rows($resultIn)>0){
+				echo "<p class='white'>The Champion's name already exist</p>";
+			}
+			else{
+				$queryIn = "SELECT * FROM Sponsors where username='$username' ";
 				$resultIn = mysqli_query($conn, $queryIn);
-				
-				
-				if($username != "" and $name != ""){
-					$queryOut = "INSERT INTO Champions (cID, name, username, level, power, intelligence, endurance) 
-					VALUES ('$cID', '$name', '$username', '$level', '$power', '$intelligence', '$endurance')";
-					if(mysqli_query($conn, $queryOut)){
-		      	echo '<p class="white">Champion Created</p>';
-					} else{
-					echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
-					}
+				$cost = mysqli_real_escape_string($conn, $_POST['costs']);
+				if($userdata["credits"] < $cost){
+					echo'<p class="white">You do not have enough credits</p>';
 				}else{
-					echo "ERROR: Username or Champion name invalid";
+					$queryIn = "UPDATE Sponsors SET credits = credits - '$cost' WHERE username = '$username'";
+					$resultIn = mysqli_query($conn, $queryIn);
+					
+					
+					if($username != "" and $name != ""){
+						$queryOut = "INSERT INTO Champions (cID, name, username, level, power, intelligence, endurance) 
+						VALUES ('$cID', '$name', '$username', '$level', '$power', '$intelligence', '$endurance')";
+						if(mysqli_query($conn, $queryOut)){
+					echo '<p class="white">Champion Created</p>';
+						} else{
+						echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
+						}
+					}else{
+						echo "ERROR: Username or Champion name invalid";
+					}
 				}
 			}
 		}
