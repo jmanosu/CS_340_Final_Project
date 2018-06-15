@@ -276,15 +276,12 @@ fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type
 	font-size: 0.8em;"
 }
 
-table,
-th,
-td {
+table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
 }
 
-th,
-td {
+th, td {
   padding: 5px;
 }
 
@@ -292,18 +289,16 @@ table {
   width: 100%;
 }
 
-table,
-th,
-td {
+table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
 }
 
-th,
-td {
+th, td {
   padding: 5px;
   text-align: left;
 }
+
 table#t01 {
 	width:400px;
 }
@@ -389,10 +384,15 @@ caption {
 }
 
 .account #username{
-	margin: 10px;
-	background: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+	background: white;
 	width: 100%;
 	font-size: 100px;
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background-color: #fff;
+  margin: 2px;
+  margin-bottom: 10px;
+  padding: 20px;
 }
 
 .account #stats{
@@ -407,9 +407,16 @@ caption {
 }
 
 #champions{
-	width: 80%;
 	padding: 20px;
 }
+
+#champions h4{
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background-color: #fff;
+  padding: 10px;
+}
+
 
 #newChamps{
   width: 70%;
