@@ -224,7 +224,7 @@ legend {
     box-shadow: none;
     background: #fff;
     font-size: 14px;
-    color: #5e5223;
+    color: orangered;
 }
 
 form {
@@ -279,28 +279,19 @@ fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
 }
 
-th, td {
-  padding: 5px;
-}
 
 table {
   width: 100%;
 }
 
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 5px;
-  text-align: left;
-}
-
 table#t01 {
 	width:400px;
+        margin-left: auto;
+        margin-right: auto;
 }
 
 table#t01 tr:nth-child(even) {
