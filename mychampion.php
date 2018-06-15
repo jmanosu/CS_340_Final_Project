@@ -109,7 +109,7 @@
 		<h2 id="cost"></h2>
 		  <p>
 			<input type = "submit"  value = "Submit" />
-			<input type = "button" value = "Reroll" onclick = REroll()>
+			<input type = "button" value = "Reroll" onclick = RerollStats()>
 		  </p>
 	</form>
 	</div>
