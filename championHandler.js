@@ -16,7 +16,7 @@ function CalcCredits(){
 	cost += Number(document.getElementById('endurance').value);
 	cost = Math.floor(cost / 10);
 	document.getElementById('cost').innerHTML = "Cost: " + cost;
-	document.getElementById('costs').value = cost;
+	document.getElementById('cost').value = cost;
 }
 
 

@@ -29,7 +29,7 @@
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	// Escape user inputs for security
 			$username = $_SESSION['username'];
-			$queryIn = "SELECT credits FROM Sponsors WHERE username = '$username'";
+			$queryIn = "SELECT credits, cNum FROM Sponsors WHERE username = '$username'";
 			$resultIn = mysqli_query($conn, $queryIn);
 			$userdata =  mysqli_fetch_assoc($resultIn);
 			$name = preg_replace('/[^A-Za-z0-9\. -]/', '',mysqli_real_escape_string($conn, $_POST['cName']));
@@ -40,34 +40,21 @@
 			$queryIn = "SELECT MAX(cID) AS MAX FROM Champions";
 			$resultIn = mysqli_query($conn, $queryIn);
 			$cID = mysqli_fetch_assoc($resultIn)['MAX'] + 1;
-			
-			$queryIn = "SELECT * FROM Champions where name='$name' ";
+			$queryIn = "SELECT * FROM Sponsors where username='$username' ";
 			$resultIn = mysqli_query($conn, $queryIn);
-			if(mysqli_num_rows($resultIn)>0){
-				echo "<p class='white'>The Champion's name already exist</p>";
-			}
-			else{
-				$queryIn = "SELECT * FROM Sponsors where username='$username' ";
-				$resultIn = mysqli_query($conn, $queryIn);
-				$cost = mysqli_real_escape_string($conn, $_POST['costs']);
-				if($userdata["credits"] < $cost){
-					echo'<p class="white">You do not have enough credits</p>';
-				}else{
-					$queryIn = "UPDATE Sponsors SET credits = credits - '$cost' WHERE username = '$username'";
-					$resultIn = mysqli_query($conn, $queryIn);
-					
-					
-					if($username != "" and $name != ""){
-						$queryOut = "INSERT INTO Champions (cID, name, username, level, power, intelligence, endurance) 
-						VALUES ('$cID', '$name', '$username', '$level', '$power', '$intelligence', '$endurance')";
-						if(mysqli_query($conn, $queryOut)){
-					echo '<p class="white">Champion Created</p>';
-						} else{
-						echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
-						}
-					}else{
-						echo "ERROR: Username or Champion name invalid";
+	    $cost = floor(($power + $intelligence + $endurance)/10);
+			if($userdata["credits"] < $cost and $userdata["cNum"] < 5){
+				echo'<p class="white">You do not have enough credits</p>';
+			}else{
+				if($username != "" and $name != ""){
+					$queryOut = "INSERT INTO Champions (cID, name, username, level, power, intelligence, endurance) VALUES ('$cID', '$name', '$username', '$level', '$power', '$intelligence', '$endurance')";
+					if(mysqli_query($conn, $queryOut)){
+		      	echo '<p class="white">Champion Created</p>';
+					} else{
+					echo "ERROR: Could not able to execute $queryOut. " . mysqli_error($conn);
 					}
+				}else{
+					echo "ERROR: Username or Champion name invalid";
 				}
 			}
 		}
@@ -120,7 +107,6 @@
 		</table>
 	</fieldset>
 		<h2 id="cost"></h2>
-		<input type="number" class="notrequired" name="costs" id="costs" readonly hidden>
 		  <p>
 			<input type = "submit"  value = "Submit" />
 			<input type = "button" value = "Reroll" onclick = RerollStats()>

@@ -129,7 +129,7 @@
 			$queryIn = "SELECT C.username, C.name, C.power, C.intelligence, C.endurance
 									FROM Graveyard G INNER JOIN Champions C ON (C.cID = G.cID)
 									WHERE G.arena = '$var'";
-									
+
 			$resultIn = mysqli_query($conn, $queryIn);
 			if(!$result){
 				die("Query couldn't complete");
@@ -139,23 +139,21 @@
 
 			if(mysqli_num_rows($resultIn) > 0){
 				display($resultIn);
-				/*echo "<table id='t01' border='t'><tr>";
-				$fields_num = mysqli_num_fields($result);
-				for($i = 0;$i < $fields_num; $i++){
-					$field = mysqli_fetch_field($result);
-					echo "<td><b>$field->name</b></td>";
-				}
-				echo "</tr>\n";
-				while($row = mysqli_fetch_row($result)) {
-					echo "<tr>";
-					echo "<td class = cOwners>$row[0]</td>";
-					echo "<td class = cNames>$row[1]</td>";
-					echo "<td class = cPowers>$row[2]</td>";
-					echo "<td class = cIntells>$row[3]</td>";
-					echo "<td class = cEndurans>$row[4]</td>";
-					echo "</tr>\n";
-				}
-				echo "</table>";*/
+			}
+
+			$queryIn = "SELECT C.username, C.name, C.power, C.intelligence, C.endurance
+									FROM Winners W INNER JOIN Champions C ON (C.cID = W.cID)
+									WHERE W.arena = '$var'";
+
+			$resultIn = mysqli_query($conn, $queryIn);
+			if(!$result){
+				die("Query couldn't complete");
+			}
+
+			echo "<h1>Past Winners:</h1>";
+
+			if(mysqli_num_rows($resultIn) > 0){
+				display($resultIn);
 			}
 
 
