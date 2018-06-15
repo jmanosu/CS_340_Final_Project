@@ -239,7 +239,7 @@ fieldset label {
     width: 120px;
     text-align: right;
     font-size: 90%;
-    color: #333;
+    color: white;
 }
 
 fieldset input, fieldset textarea, fieldset select {
@@ -267,7 +267,7 @@ fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type
     background-image: -ms-linear-gradient(top,#fff,#dae6f1);
     background-image: linear-gradient(to bottom,#fff,#dae6f1);
     font-size: 100%;
-    color: #333;
+    color: white;
 }
 
 #passformat {
