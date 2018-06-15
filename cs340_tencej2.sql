@@ -107,6 +107,11 @@ IF new.cID IS NOT NULL THEN
     SET A.numChampions = A.numChampions + 1
     WHERE A.name = new.arena;
 END IF;
+IF old.arena IS NOT NULL THEN
+	UPDATE Arena A
+    SET A.numChampions = A.numChampions - 1
+    WHERE A.name = old.arena;
+END IF;
 
 END
 $$
