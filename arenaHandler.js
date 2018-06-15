@@ -29,7 +29,7 @@ function winCheck(){
 		var pos;
 
 		display.innerHTML += "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n";
-		display.innerHTML += "A winnter has been decided, game ends.\n";
+		display.innerHTML += "A winner has been decided, game ends.\n";
 		clearInterval(myVar);
 		document.getElementById('startButton').hidden = true;
 		document.getElementById('resetButton').hidden = false;
@@ -86,30 +86,30 @@ function intellEvent(){
 		numChams --;
 		removeChams(Chams_name[ranChams].innerHTML);;
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += "PUT TEXT HERE\n";
+		display.innerHTML += " saw a wild bear\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " was killed\n";
+		display.innerHTML += " ran away from wild bear\n";
 	}
 	else if(RNG - Chams_intel[ranChams].innerHTML > 50){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += "PUT TEXT HERE\n";
+		display.innerHTML += " found a machete on the ground\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += "PUT TEXT HERE\n";
+		display.innerHTML += " put the machete in his backpack\n";
 		if(Chams_pow[ranChams].innerHTML >= 5) Chams_pow[ranChams].innerHTML--;
 		if (Chams_pow[ranChams].innerHTML <= 0){
-			display.innerHTML += "PUT TEXT HERE";
+			display.innerHTML += " ate some posion berrys";
 			display.innerHTML += Chams_name[ranChams].innerHTML;
 			display.innerHTML += " passed away.\n";
 		}
 	}
 	else if(RNG - Chams_intel[ranChams].innerHTML > 10){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n";
+		display.innerHTML += " fell asleep under the trees\n";
 	}
 	else{
 		Chams_endu[ranChams].innerHTML ++;
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += "PUT TEXT HERE\n"
+		display.innerHTML += " used medical supplies\n"
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " feels really good now\n";
 	}
@@ -127,32 +127,32 @@ function enduranEvent(){
 		numChams --;
 		removeChams(Chams_name[ranChams].innerHTML);;
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n";
+		display.innerHTML += " was crushed by a bolder\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
 		display.innerHTML += " was killed\n";
 	}
 	else if(RNG - Chams_endu[ranChams].innerHTML > 50){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n";
+		display.innerHTML += " realized someone took his food\n";
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n";
+		display.innerHTML += " screamed in rage\n";
 		if(Chams_intel[ranChams].innerHTML >= 5) Chams_intel[ranChams].innerHTML--;
 		if (Chams_intel[ranChams].innerHTML <= 0){
-			display.innerHTML += "PUT TEXT HERE ";
+			display.innerHTML += " slowly bleed out due to a wound";
 			display.innerHTML += Chams_name[ranChams].innerHTML;
 			display.innerHTML += " passed away.\n";
 		}
 	}
 	else if(RNG - Chams_endu[ranChams].innerHTML > 10){
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n";
+		display.innerHTML += " hid from other champions\n";
 	}
 	else{
 		Chams_pow[ranChams].innerHTML ++;
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n"
+		display.innerHTML += " fashioned a spear\n"
 		display.innerHTML += Chams_name[ranChams].innerHTML;
-		display.innerHTML += " PUT TEXT HERE\n";
+		display.innerHTML += " sharpened his spear\n";
 	}
 	updateChams(Chams_name[ranChams].innerHTML,
 				Chams_pow[ranChams].innerHTML,
@@ -176,15 +176,15 @@ function DuelEvent(){
 		display.innerHTML += " to fight with him\n"
 		if(RNG > 50 - (Chams_pow[ranCham1].innerHTML - Chams_pow[ranCham2].innerHTML)){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
-			display.innerHTML += " PUT TEXT HERE\n"
+			display.innerHTML += " couldn't find food\n"
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
-			removeChams(Chams_name[ranCham1].innerHTML);;		
+			removeChams(Chams_name[ranCham1].innerHTML);;
 		}
 		else{
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
-			display.innerHTML += " PUT TEXT HERE\n"
+			display.innerHTML += " was posioned\n"
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
@@ -198,7 +198,7 @@ function DuelEvent(){
 		display.innerHTML += "\n"
 		if(RNG > 50 - (Chams_intel[ranCham1].innerHTML - Chams_intel[ranCham2].innerHTML)){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
-			display.innerHTML += " PUT TEXT HERE\n"
+			display.innerHTML += " a spear flew out of no where\n"
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
@@ -206,7 +206,7 @@ function DuelEvent(){
 		}
 		else{
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
-			display.innerHTML += " PUT TEXT HERE\n"
+			display.innerHTML += " got attacked while sleeping\n"
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
@@ -220,15 +220,15 @@ function DuelEvent(){
 		display.innerHTML += " from the shadow\n"
 		if(RNG > 50 - (Chams_endu[ranCham1].innerHTML - Chams_endu[ranCham2].innerHTML)){
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
-			display.innerHTML += " PUT TEXT HERE\n"
+			display.innerHTML += " saw a bunny rabbit in the bushes\n"
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
-			display.innerHTML += " was killed\n";
+			display.innerHTML += " caught it with a trap\n";
 			numChams --;
 			removeChams(Chams_name[ranCham1].innerHTML);;
 		}
 		else{
 			display.innerHTML += Chams_name[ranCham1].innerHTML;
-			display.innerHTML += " PUT TEXT HERE\n"
+			display.innerHTML += " shot in the new by an arrow\n"
 			display.innerHTML += Chams_name[ranCham2].innerHTML;
 			display.innerHTML += " was killed\n";
 			numChams --;
@@ -249,7 +249,7 @@ function areaStart(){
 	if(start == true){
 		myVar = setInterval(eventhandler, 1000);
 		start = false;
-	}	
+	}
 }
 
 function areaReset(){
